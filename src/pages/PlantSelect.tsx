@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 
 import { Header } from "../components/Header";
 import { EnviromentButton } from "../components/EnviromentButton";
-import axios from "axios";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
@@ -19,8 +18,9 @@ export const PlantSelect = () => {
 
   const getList = async () => {
     try {
-      const { data } = await axios.get("http://127.0.0.1:3000/plants_environments");
-      console.log(data, "TESTE");
+      const { data } = await api.get("plants_environments");
+      console.log("data: ", data);
+
       setEnviroments([
         {
           key: "all",
@@ -29,16 +29,16 @@ export const PlantSelect = () => {
         ...data,
       ]);
     } catch (error: any) {
-      console.log("error.response", error.response);
+      console.log("error.response", error);
     }
   };
 
   useEffect(() => {
-    console.log("teste");
+    // console.log("teste");
     getList();
   }, []);
 
-  console.log(enviroments);
+  // console.log(enviroments);
 
   return (
     <View style={styles.container}>
